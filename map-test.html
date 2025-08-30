@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Test - भारत H2-Atlas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        .map-header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .test-button {
+            background: #138086;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .test-button:hover {
+            background: #0a5045;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="map-header">
+        <h2>भारत H2-Atlas - Map Test</h2>
+        <p>Testing map functionality...</p>
+        <button class="test-button" onclick="addTestMarker()">Add Test Marker</button>
+        <button class="test-button" onclick="toggleHeatmap()">Toggle Heatmap</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([23.5937, 78.9629], 5);
+        
+        // Add base tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Test data
+        const testSites = [
+            {
+                name: 'Jaisalmer Solar Hub',
+                coordinates: [26.9117, 70.9228],
+                score: 88
+            },
+            {
+                name: 'Gujarat Wind Corridor',
+                coordinates: [22.2587, 71.1924],
+                score: 85
+            },
+            {
+                name: 'Tamil Nadu Industrial Zone',
+                coordinates: [13.0827, 80.2707],
+                score: 78
+            }
+        ];
+        
+        let heatmapLayer = null;
+        let markers = [];
+        
+        // Add test markers
+        testSites.forEach(site => {
+            const marker = L.circle(site.coordinates, {
+                color: getColorForScore(site.score),
+                fillColor: getColorForScore(site.score),
+                fillOpacity: 0.3,
+                radius: 50000
+            }).addTo(map);
+            
+            marker.bindPopup(`
+                <div style="padding: 10px;">
+                    <h3 style="margin: 0 0 10px 0; color: #138086;">${site.name}</h3>
+                    <p><strong>Suitability Score:</strong> ${site.score}/100</p>
+                    <p><strong>Coordinates:</strong> ${site.coordinates[0]}, ${site.coordinates[1]}</p>
+                </div>
+            `);
+            
+            markers.push(marker);
+        });
+        
+        // Color function
+        function getColorForScore(score) {
+            if (score >= 90) return '#1a9850';
+            if (score >= 70) return '#91cf60';
+            if (score >= 40) return '#fee090';
+            return '#d73027';
+        }
+        
+        // Test functions
+        function addTestMarker() {
+            const randomLat = 20 + Math.random() * 10;
+            const randomLng = 70 + Math.random() * 20;
+            const testMarker = L.marker([randomLat, randomLng]).addTo(map);
+            testMarker.bindPopup('Test Marker Added!');
+        }
+        
+        function toggleHeatmap() {
+            if (heatmapLayer) {
+                map.removeLayer(heatmapLayer);
+                heatmapLayer = null;
+            } else {
+                heatmapLayer = L.layerGroup();
+                
+                testSites.forEach(site => {
+                    // Generate heatmap points around each site
+                    for (let i = 0; i < 20; i++) {
+                        const latOffset = (Math.random() - 0.5) * 2;
+                        const lngOffset = (Math.random() - 0.5) * 2;
+                        
+                        L.circleMarker([site.coordinates[0] + latOffset, site.coordinates[1] + lngOffset], {
+                            radius: 8,
+                            color: getColorForScore(site.score),
+                            fillColor: getColorForScore(site.score),
+                            fillOpacity: 0.6
+                        }).addTo(heatmapLayer);
+                    }
+                });
+                
+                heatmapLayer.addTo(map);
+            }
+        }
+        
+        console.log('Map initialized successfully!');
+        console.log('Test sites:', testSites);
+    </script>
+</body>
+</html>
+
