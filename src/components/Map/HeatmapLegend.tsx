@@ -16,7 +16,7 @@ const HeatmapLegend: React.FC = () => {
       
       <div className="space-y-3">
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded bg-[#1a9850]"></div>
+          <div className="w-5 h-5 rounded bg-[#2c974b]"></div>
           <span className="text-sm text-gray-700">Excellent (90-100)</span>
         </div>
         <div className="flex items-center gap-3">
@@ -24,18 +24,18 @@ const HeatmapLegend: React.FC = () => {
           <span className="text-sm text-gray-700">High (70-89)</span>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded bg-[#fee090]"></div>
+          <div className="w-5 h-5 rounded bg-[#ff9933]"></div>
           <span className="text-sm text-gray-700">Medium (40-69)</span>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded bg-[#d73027]"></div>
+          <div className="w-5 h-5 rounded bg-[#1f4e79]"></div>
           <span className="text-sm text-gray-700">Low (0-39)</span>
         </div>
       </div>
       
       <div className="mt-3 pt-3 border-t border-gray-200">
         <p className="text-xs text-gray-500">
-          Based on renewable resources, infrastructure proximity, and policy factors
+          Based on renewable resources, infrastructure proximity, and policy factors for Indian hydrogen production sites
         </p>
       </div>
     </div>

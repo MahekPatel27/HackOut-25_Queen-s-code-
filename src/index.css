@@ -21,6 +21,19 @@
     @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6;
   }
   
+  /* Indian Hydrogen Atlas specific button styles */
+  .btn-indian-primary {
+    @apply bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+  }
+  
+  .btn-indian-secondary {
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+  }
+  
+  .btn-indian-outline {
+    @apply bg-transparent border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-blue-700 transition-all duration-300;
+  }
+  
   .sidebar-item {
     @apply flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-lg transition-colors duration-200 cursor-pointer;
   }
@@ -168,6 +181,15 @@
   --primary-700: #0369a1;
   --primary-800: #075985;
   --primary-900: #0c4a6e;
+  
+  /* Indian Hydrogen Atlas specific colors */
+  --indian-green: #2c974b;
+  --indian-green-dark: #186a3b;
+  --indian-blue: #1f4e79;
+  --indian-saffron: #ff9933;
+  --indian-light: #f5f5f5;
+  --indian-dark: #333333;
+  --indian-text: #444444;
 }
 
 /* Solar and Wind specific colors */
@@ -202,6 +224,28 @@
   position: relative;
 }
 
+/* Dashboard specific styles */
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--indian-green) 0%, var(--indian-blue) 100%);
+}
+
+.dashboard-feature-card {
+  transition: all 0.3s ease;
+}
+
+.dashboard-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-gradient-bg {
+  background: linear-gradient(to right, var(--indian-green), var(--indian-blue));
+}
+
+.dashboard-footer {
+  background: linear-gradient(to right, var(--indian-blue), var(--indian-green));
+}
+
 #map {
   height: 100% !important;
   width: 100% !important;
@@ -217,4 +261,72 @@
 .leaflet-marker-icon {
   background: transparent;
   border: none;
+}
+
+/* Enhanced button styles for Indian Hydrogen Atlas theme */
+.btn-primary-enhanced {
+  @apply bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+}
+
+.btn-secondary-enhanced {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+}
+
+/* Card enhancements */
+.card-enhanced {
+  @apply bg-white rounded-2xl shadow-xl border border-gray-100 p-8 transform hover:scale-105 transition-all duration-300;
+}
+
+/* Gradient backgrounds */
+.gradient-green-blue {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 100%);
+}
+
+.gradient-blue-green {
+  background: linear-gradient(135deg, #1f4e79 0%, #2c974b 100%);
+}
+
+.gradient-saffron {
+  background: linear-gradient(135deg, #ff9933 0%, #ff8c00 100%);
+}
+
+/* Enhanced Indian Hydrogen Atlas gradients */
+.gradient-indian-hero {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 50%, #2c974b 100%);
+}
+
+.gradient-indian-header {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 100%);
+}
+
+.gradient-indian-button {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 100%);
+}
+
+.gradient-indian-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+}
+
+.gradient-indian-accent {
+  background: linear-gradient(135deg, #ff9933 0%, #ff8c00 100%);
+}
+
+/* Enhanced blue-green theme */
+.bg-gradient-indian-primary {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 100%);
+}
+
+.bg-gradient-indian-secondary {
+  background: linear-gradient(135deg, #1f4e79 0%, #2c974b 100%);
+}
+
+.bg-gradient-indian-accent {
+  background: linear-gradient(135deg, #ff9933 0%, #ff8c00 100%);
+}
+
+.text-gradient-indian {
+  background: linear-gradient(135deg, #2c974b 0%, #1f4e79 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

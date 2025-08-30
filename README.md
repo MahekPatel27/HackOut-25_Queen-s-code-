@@ -243,15 +243,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Team
 
-- **Frontend Development** - Modern React/TypeScript implementation
+- **Frontend Development** - React/TypeScript implementation
 - **UI/UX Design** - Clean, professional interface design
 - **Integration** - Deep learning Model
 
-## 📞 Support
-
-For questions, issues, or contributions:
-- **Contact No.**: 7573831004
-- 📧 **Email**: shrutiparbadiya.ce@gmail.com
 
 ## 🔮 Future Roadmap
 
