@@ -1,46 +1,121 @@
-# भारत H2-Atlas - India's Hydrogen Atlas
+# Hydrogen Atlas for India
 
-India's first geospatial decision support tool for green hydrogen infrastructure planning and investment analysis.
+** India’s first geospatial decision support tool for green hydrogen**
 
-## 🚀 Features
+A modern, responsive web application built with React, TypeScript, and Tailwind CSS that provides an intuitive interface for managing blockchain-based green hydrogen subsidies.
 
-### Interactive Map Interface
-- **Real-time Heatmap Visualization**: Dynamic suitability scoring based on customizable criteria weights
-- **Multi-layer Support**: Solar, wind, water, infrastructure, and land use layers
-- **Site Analysis**: Detailed information panels for each hydrogen production site
-- **Demand Center Mapping**: Industrial zones and consumption centers across India
+![Hydrogen Atlas Logo](https://drive.google.com/file/d/1OnP_dHUMkH65kATRWFMfZe0X9YbBkMMC/view?usp=drive_link)
 
-### Criteria Weight System
-- **Solar Potential**: Renewable energy resource assessment (0-100%)
-- **Wind Potential**: Wind resource evaluation (0-100%)
-- **Water Availability**: Water resource proximity and quality (0-100%)
-- **Industry Proximity**: Distance to industrial clusters (0-100%)
-- **Grid Connection**: Power infrastructure accessibility (0-100%)
-- **Land Availability**: Land use suitability and availability (0-100%)
+## 🚀 Overview
 
-### Advanced Analytics
-- **Suitability Scoring**: Real-time calculation based on weighted criteria
-- **Site Comparison**: Side-by-side analysis of multiple locations
-- **Policy Insights**: State and national incentive information
-- **Investment Analysis**: ROI calculations and market trends
+The Indian Hydrogen Atlas is a interactive GIS-based decision support designed to visualize and analyze India's potential for green hydrogen infrastructure. An platform that integrates renewable resources, demand hubs, infrastructure, and policy zones to identify optimal sites for hydrogen ecosystem growth. 
 
-## 🛠️ Technology Stack
+### Key Features
+- Interactive Map Layers
+Solar potential (GHI map)
+Wind potential (wind density map)
+Water availability (surface & groundwater)
+Industrial demand clusters (steel, fertilizer, refineries)
+Grid infrastructure & transport corridors
+Land use (wasteland, forest, urban, etc.)
 
-- **Frontend**: React 18 + TypeScript
-- **Mapping**: Leaflet + React-Leaflet
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Charts**: Recharts
-- **Routing**: React Router DOM
+- Suitability Heatmap
+Weighted overlay (user can adjust importance of solar, wind, water, industry proximity).
+Output: Green zones = high suitability, Red = poor suitability.
 
-## 📊 Data Sources
+- Site Analytics Panel (on map click)
+Renewable resource index
+Water availability index
+Distance to industry cluster & grid
+Land-use classification
+Policy & incentive zone (state/central schemes)
 
-- **Solar Data**: National Institute of Solar Energy (NISE)
-- **Wind Data**: National Institute of Wind Energy (NIWE)
-- **Water Data**: Central Water Commission (CWC)
-- **Land Use**: ISRO Bhuvan Portal
-- **Infrastructure**: Central Electricity Authority (CEA)
-- **Industrial Data**: Ministry of Commerce & Industry
+- Export Reports
+Auto-generate PDF / Excel summary for a selected site → can be used by ministries or investors.
+
+
+## 🛠️ Tech Stack
+
+### Data Sources: 
+- MNRE, NIWE, CWC, Bhuvan, CEA, Invest India, MoRTH
+
+### Backend / Processing:
+
+- Python (GeoPandas, Rasterio, GDAL, PyMCDA for multi-criteria analysis)
+- PostgreSQL + PostGIS (spatial database)
+- Geoserver (publish layers as WMS/WFS)
+
+
+### Frontend (Web GIS):
+
+- React.js + Leaflet.js / Mapbox GL
+- ShadCN UI + Tailwind for clean UI
+- Option: Streamlit prototype for rapid demo
+
+### Deployment:
+
+- Cloud hosting: AWS / Azure / NIC Cloud (for govt pitch)
+- Scalable microservice architecture (API + GIS + DB layers)
+
+## 📁 Project Structure
+
+HACKOUT/
+│
+├── backend/                         # Python FastAPI/Flask backend
+│   ├── main.py                      # API entry point
+│   ├── models/                      # ML / suitability models
+│   │   ├── scoring.py               # weighted scoring algorithm
+│   │   └── utils.py                 # helper functions
+│   ├── data/                        # static datasets
+│   │   ├── solar.csv
+│   │   ├── water.csv
+│   │   ├── infra.csv
+│   │   └── india_boundary.geojson
+│   ├── requirements.txt             # backend dependencies
+│   └── __init__.py
+│
+├── frontend/ (or use src/ directly) # React + TypeScript app
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Layout/              # Navbar, sidebar
+│   │   │   ├── Map/                 # Map + Heatmap components
+│   │   │   │   ├── HeatmapLayer.tsx
+│   │   │   │   └── Legend.tsx
+│   │   │   └── UI/                  # Buttons, sliders, dropdowns
+│   │   │
+│   │   ├── contexts/
+│   │   │   ├── MapContext.tsx       # manages map state (layers, weights)
+│   │   │   └── AuthContext.tsx
+│   │   │
+│   │   ├── data/
+│   │   │   └── demoData.ts          # mock dataset (until API connected)
+│   │   │
+│   │   ├── pages/                   # main routes
+│   │   │   ├── Dashboard.tsx        # Overview + sliders
+│   │   │   ├── MapView.tsx          # Interactive map
+│   │   │   ├── Analysis.tsx         # Suitability analysis report
+│   │   │   ├── Reports.tsx
+│   │   │   ├── Settings.tsx
+│   │   │   └── Login.tsx
+│   │   │
+│   │   ├── App.tsx
+│   │   ├── index.tsx
+│   │   └── index.css
+│   │
+│   ├── public/
+│   │   └── index.html
+│   │
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── tailwind.config.js
+│   └── postcss.config.js
+│
+├── build/                           # production build files
+│   └── static/
+│
+├── map-test.html                    # standalone Leaflet/heatmap test
+├── README.md
+└── .gitignore
 
 ## 🎯 Use Cases
 
@@ -69,7 +144,7 @@ India's first geospatial decision support tool for green hydrogen infrastructure
 - npm or yarn
 
 ### Installation
-```bash
+bash
 # Clone the repository
 git clone <repository-url>
 cd HACKOUT
@@ -82,7 +157,7 @@ npm start
 
 # Build for production
 npm run build
-```
+
 
 ### Environment Setup
 The application uses OpenStreetMap tiles by default. For production use, consider:
@@ -90,91 +165,68 @@ The application uses OpenStreetMap tiles by default. For production use, conside
 - Adding API keys for additional data sources
 - Configuring environment variables
 
-## 🗺️ Map Features
-
-### Heatmap Visualization
-- **Dynamic Intensity Control**: Adjustable heatmap density (1-30)
-- **Real-time Updates**: Instant recalculation based on weight changes
-- **Color-coded Scoring**:
-  - 🟢 Excellent (90-100): Dark Green
-  - 🟢 High (70-89): Light Green  
-  - 🟡 Medium (40-69): Yellow
-  - 🔴 Low (0-39): Red
-
-### Layer Management
-- **Solar Potential Layer**: Renewable energy resource mapping
-- **Wind Potential Layer**: Wind resource assessment
-- **Water Availability Layer**: Water resource proximity
-- **Infrastructure Layer**: Existing facilities and grid connections
-- **Land Use Layer**: Land classification and availability
-
-### Interactive Elements
-- **Site Markers**: Clickable locations with detailed information
-- **Demand Centers**: Industrial zones and consumption areas
-- **Popup Information**: Rich site details and metrics
-- **Zoom Controls**: Map navigation and view management
 
 ## 📈 Analysis Tools
 
 ### Suitability Calculator
-- **Weighted Scoring**: Customizable criteria importance
-- **Real-time Updates**: Instant score recalculation
-- **Validation**: Total weight must equal 100%
-- **Export Options**: Generate detailed reports
+- *Weighted Scoring*: Customizable criteria importance
+- *Real-time Updates*: Instant score recalculation
+- *Validation*: Total weight must equal 100%
+- *Export Options*: Generate detailed reports
 
 ### Site Comparison
-- **Multi-site Analysis**: Compare up to 5 locations
-- **Metric Breakdown**: Detailed factor analysis
-- **Visual Charts**: Bar charts and radar plots
-- **Export Reports**: PDF and Excel formats
+- *Multi-site Analysis*: Compare up to 5 locations
+- *Metric Breakdown*: Detailed factor analysis
+- *Visual Charts*: Bar charts and radar plots
+- *Export Reports*: PDF and Excel formats
 
 ## 🎨 UI/UX Features
 
 ### Modern Design
-- **Responsive Layout**: Works on desktop and mobile
-- **Dark/Light Themes**: Customizable appearance
-- **Accessibility**: Screen reader support
-- **Internationalization**: Multi-language support (English/Hindi)
+- *Responsive Layout*: Works on desktop and mobile
+- *Dark/Light Themes*: Customizable appearance
+- *Accessibility*: Screen reader support
+- *Internationalization*: Multi-language support (English/Hindi)
 
 ### Interactive Controls
-- **Slider Controls**: Intuitive weight adjustment
-- **Toggle Switches**: Layer visibility control
-- **Search Functionality**: Site and location search
-- **Filter Options**: State and category filtering
+- *Slider Controls*: Intuitive weight adjustment
+- *Toggle Switches*: Layer visibility control
+- *Search Functionality*: Site and location search
+- *Filter Options*: State and category filtering
 
 ## 🔧 Configuration
 
 ### Customization Options
-- **Color Schemes**: Adjustable heatmap colors
-- **Default Weights**: Configurable initial criteria values
-- **Layer Settings**: Customizable layer properties
-- **Map Center**: Configurable default map view
+- *Color Schemes*: Adjustable heatmap colors
+- *Default Weights*: Configurable initial criteria values
+- *Layer Settings*: Customizable layer properties
+- *Map Center*: Configurable default map view
 
 ### Performance Optimization
-- **Lazy Loading**: On-demand data loading
-- **Caching**: Browser-based data caching
-- **Optimized Rendering**: Efficient map updates
-- **Memory Management**: Proper cleanup and disposal
+- *Lazy Loading*: On-demand data loading
+- *Caching*: Browser-based data caching
+- *Optimized Rendering*: Efficient map updates
+- *Memory Management*: Proper cleanup and disposal
 
 ## 📱 Responsive Design
 
 The application is fully responsive and works on:
-- **Desktop**: Full feature set with side panels
-- **Tablet**: Optimized layout for medium screens
-- **Mobile**: Touch-friendly mobile interface
+- *Desktop*: Full feature set with side panels
+- *Tablet*: Optimized layout for medium screens
+- *Mobile*: Touch-friendly mobile interface
 
 ## 🚀 Deployment
 
 ### Production Build
-```bash
+bash
 npm run build
-```
+
 
 ### Deployment Options
-- **Static Hosting**: Netlify, Vercel, GitHub Pages
-- **Cloud Platforms**: AWS S3, Google Cloud Storage
-- **Container Deployment**: Docker containers
-- **Traditional Hosting**: Apache, Nginx
+- *Static Hosting*: Netlify, Vercel, GitHub Pages
+- *Cloud Platforms*: AWS S3, Google Cloud Storage
+- *Container Deployment*: Docker containers
+- *Traditional Hosting*: Apache, Nginx
 
 ## 🤝 Contributing
 
@@ -188,21 +240,29 @@ We welcome contributions! Please see our contributing guidelines for:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
 
-- **Data Sources**: NISE, NIWE, CWC, ISRO, CEA
-- **Open Source**: Leaflet, React, Tailwind CSS
-- **Community**: OpenStreetMap contributors
-- **Support**: National Green Hydrogen Mission
+## 👥 Team
+
+- **Frontend Development** - Modern React/TypeScript implementation
+- **UI/UX Design** - Clean, professional interface design
+- **Integration** - Deep learning Model
 
 ## 📞 Support
 
-For support and questions:
-- **Issues**: GitHub Issues
-- **Documentation**: Project Wiki
-- **Email**: support@h2atlas.in
-- **Community**: Discord/Telegram groups
+For questions, issues, or contributions:
+- **Contact No.**: 7573831004
+- 📧 **Email**: shrutiparbadiya.ce@gmail.com
+
+## 🔮 Future Roadmap
+
+- [ ] **Mobile App** - React Native implementation
+- [ ] **PWA Features** - Offline support and push notifications  
+- [ ] **Advanced Analytics** - Enhanced reporting and insights
+- [ ] **Dark Mode** - User preference theming
+- [ ] **API Integration** - Enhanced backend connectivity
 
 ---
 
-**भारत H2-Atlas** - Empowering India's green hydrogen future through intelligent geospatial analysis and decision support.
+**Built with ❤️ for the future of sustainable energy**
+
+*Hydrogen Atlas -- Empowering India's green hydrogen future through intelligent geospatial analysis and decision support.*
